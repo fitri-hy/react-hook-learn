@@ -1,0 +1,19 @@
+import { useMemo } from 'react';
+
+function App() {
+  // Mendefinisikan objek pengguna yang akan dirender
+  const user = {
+    nama: 'John Doe',
+    usia: 30,
+    hobi: ['membaca', 'menulis', 'bersepeda'],
+  };
+
+  // Menggunakan useMemo untuk menghafal objek pengguna
+  const memoizedUser = useMemo(() => {
+    // Mengembalikan objek pengguna dari dalam fungsi
+    return user;
+  }, [user]); // Daftar ketergantungan kosong, artinya objek tidak akan diperbarui
+
+  // Merender nama pengguna menggunakan objek yang di-memoize
+  return <div>{memoizedUser.nama}</div>;
+}

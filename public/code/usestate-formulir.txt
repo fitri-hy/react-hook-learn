@@ -1,0 +1,53 @@
+// Import React dan hook useState
+import React, { useState } from "react";
+
+// Komponen App
+const App = () => {
+  // Membuat status data formulir awal (formData) dengan nilai objek kosong menggunakan useState
+  const [formData, setFormData] = useState({
+    nama: "",
+    email: "",
+    password: "",
+  });
+
+  // Fungsi untuk menangani perubahan pada input formulir
+  const handleChange = (event) => {
+    // Mendapatkan nama dan nilai dari input yang diubah
+    const { name, value } = event.target;
+
+    // Memperbarui status formData dengan nilai baru menggunakan spread operator
+    // Spread operator membuat salinan baru dari objek formData, sehingga kita dapat memodifikasi nilai properti tertentu tanpa menimpa properti lainnya
+    setFormData({ ...formData, [name]: value });
+  };
+
+  // Fungsi untuk menangani pengiriman formulir
+  const handleSubmit = (event) => {
+    // Mencegah pengiriman formulir secara default
+    event.preventDefault();
+
+    // Menampilkan data formulir yang telah diisi ke konsol
+    console.log(formData);
+  };
+
+  // Render komponen
+  return (
+    <div>
+      <h1>Formulir Pendaftaran</h1>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="nama">Nama:</label>
+        <input type="text" id="nama" name="nama" onChange={handleChange} value={formData.nama} />
+        <br />
+        <label htmlFor="email">Email:</label>
+        <input type="email" id="email" name="email" onChange={handleChange} value={formData.email} />
+        <br />
+        <label htmlFor="password">Password:</label>
+        <input type="password" id="password" name="password" onChange={handleChange} value={formData.password} />
+        <br />
+        <button type="submit">Daftar</button>
+      </form>
+    </div>
+  );
+};
+
+// Mengekspor komponen App
+export default App;

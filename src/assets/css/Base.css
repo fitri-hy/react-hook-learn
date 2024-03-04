@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url(https://pro.fontawesome.com/releases/v5.10.0/css/all.css);
+body * {
+    @apply transition-colors duration-300;
+}

@@ -1,0 +1,24 @@
+import { useRef } from 'react';
+
+function App() {
+  // Membuat ref untuk menyimpan hitungan sebelumnya
+  const prevCountRef = useRef(0);
+
+  // Menggunakan useEffect untuk memperbarui hitungan sebelumnya
+  useEffect(() => {
+    // Mencatat hitungan sebelumnya sebelum diperbarui
+    console.log(`Hitungan sebelumnya: ${prevCountRef.current}`);
+
+    // Memperbarui hitungan sebelumnya dengan hitungan saat ini
+    prevCountRef.current = count;
+  }, [count]); // Ketergantungan pada `count` untuk memperbarui saat hitungan berubah
+
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>Hitungan: {count}</p>
+      <button onClick={() => setCount((prevCount) => prevCount + 1)}>Tambah</button>
+    </div>
+  );
+}

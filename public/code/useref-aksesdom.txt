@@ -1,0 +1,22 @@
+import { useRef } from 'react';
+
+function App() {
+  // Menggunakan useRef untuk membuat referensi yang dapat berubah ke elemen input
+  const inputRef = useRef(null);
+
+  // Mendefinisikan fungsi untuk memfokuskan elemen input
+  const focusInput = () => {
+    // Memeriksa apakah referensi input saat ini ada
+    if (inputRef.current) {
+      // Jika ada, fokuskan elemen input
+      inputRef.current.focus();
+    }
+  };
+
+  return (
+    <div>
+      <input type="text" ref={inputRef} />
+      <button onClick={focusInput}>Fokus Input</button>
+    </div>
+  );
+}

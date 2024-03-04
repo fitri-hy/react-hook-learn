@@ -1,0 +1,21 @@
+import { useCallback, useState } from 'react';
+
+// Komponen fungsional React
+function App() {
+  // Menggunakan useState untuk mengelola status hitungan
+  const [count, setCount] = useState(0);
+
+  // Menggunakan useCallback untuk membuat fungsi memoized yang akan bertambah
+  // hitungan
+  const memoizedIncrementCount = useCallback(() => {
+    setCount((prevCount) => prevCount + 1);
+  }, [count]); // Ketergantungan pada `count` memastikan pembaruan saat hitungan berubah
+
+  // Merender komponen dengan menampilkan hitungan dan tombol
+  return (
+    <div>
+      <p>Hitungan: {count}</p>
+      <button onClick={memoizedIncrementCount}>Tambah</button>
+    </div>
+  );
+}

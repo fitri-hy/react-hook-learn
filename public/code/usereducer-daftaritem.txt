@@ -1,0 +1,48 @@
+import { useReducer } from 'react';
+
+const initialState = {
+  items: [],
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'ADD_ITEM':
+      // Menambahkan item baru ke larik items
+      return { ...state, items: [...state.items, action.payload] };
+    case 'REMOVE_ITEM':
+      // Mengembalikan larik items baru tanpa item yang memiliki ID yang sesuai dengan action.payload
+      return { ...state, items: state.items.filter((item) => item.id !== action.payload) };
+    default:
+      // Mengembalikan status saat ini jika jenis tindakan tidak dikenali
+      return state;
+  }
+};
+
+function List() {
+  // Menggunakan useReducer untuk mengelola status komponen
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  // Mendefinisikan fungsi untuk menambahkan item baru
+  const addItem = (item) => {
+    // Melakukan dispatch tindakan ADD_ITEM dengan payload yang berisi item baru
+    dispatch({ type: 'ADD_ITEM', payload: item });
+  };
+
+  // Mendefinisikan fungsi untuk menghapus item
+  const removeItem = (id) => {
+    // Melakukan dispatch tindakan REMOVE_ITEM dengan payload yang berisi ID item yang akan dihapus
+    dispatch({ type: 'REMOVE_ITEM', payload: id });
+  };
+
+  // Merender komponen dengan menampilkan daftar item
+  return (
+    <ul>
+      {state.items.map((item) => (
+        <li key={item.id}>
+          {item.name}
+          <button onClick={() => removeItem(item.id)}>Hapus</button>
+        </li>
+      ))}
+    </ul>
+  );
+}

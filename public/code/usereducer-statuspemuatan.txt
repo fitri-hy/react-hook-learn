@@ -1,0 +1,57 @@
+import { useReducer, useEffect } from 'react';
+
+// Mendefinisikan status awal untuk pengelola status
+const initialState = {
+  loading: false, // Menunjukkan apakah data sedang dimuat
+  data: null, // Data yang diambil dari API
+  error: null, // Pesan kesalahan jika ada
+};
+
+// Mendefinisikan fungsi pereduksi untuk memperbarui status
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'START_LOADING':
+      // Saat mulai memuat, atur `loading` menjadi `true`
+      return { ...state, loading: true };
+    case 'LOAD_SUCCESS':
+      // Saat pengambilan berhasil, atur `loading` menjadi `false` dan `data` dengan data yang diambil
+      return { ...state, loading: false, data: action.payload };
+    case 'LOAD_ERROR':
+      // Saat terjadi kesalahan, atur `loading` menjadi `false` dan `error` dengan pesan kesalahan
+      return { ...state, loading: false, error: action.payload };
+    default:
+      // Jika jenis tindakan tidak dikenali, kembalikan status saat ini
+      return state;
+  }
+};
+
+function DataFetcher() {
+  // Menggunakan `useReducer` dengan pengelola status dan fungsi pereduksi yang ditentukan
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  // Mendefinisikan fungsi `fetchData` untuk mengambil data dari API
+  const fetchData = async () => {
+    dispatch({ type: 'START_LOADING' }); // Mengatur `loading` menjadi `true` sebelum pengambilan
+    try {
+      const response = await fetch('...'); // Lakukan pengambilan data dari API
+      const data = await response.json(); // Ubah respons menjadi JSON
+      dispatch({ type: 'LOAD_SUCCESS', payload: data }); // Atur `loading` menjadi `false` dan `data` dengan data yang diambil
+    } catch (error) {
+      dispatch({ type: 'LOAD_ERROR', payload: error.message }); // Atur `loading` menjadi `false` dan `error` dengan pesan kesalahan
+    }
+  };
+
+  // Menggunakan `useEffect` untuk mengambil data saat komponen dipasang
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // Merender antarmuka pengguna berdasarkan status saat ini
+  return (
+    <div>
+      {state.loading && <p>Memuat...</p>}
+      {state.error && <p>Terjadi kesalahan: {state.error}</p>}
+      {state.data && <p>Data: {state.data}</p>}
+    </div>
+  );
+}

@@ -1,0 +1,83 @@
+// CartContext.js
+// Membuat konteks React menggunakan createContext
+import { createContext } from 'react';
+
+const CartContext = createContext({
+  cart: [], // Mendefinisikan nilai awal untuk keranjang
+  addToCart: () => {}, // Mendefinisikan fungsi untuk menambahkan item ke keranjang
+  removeFromCart: () => {}, // Mendefinisikan fungsi untuk menghapus item dari keranjang
+});
+
+// Mengekspor konteks agar dapat digunakan di seluruh aplikasi
+export default CartContext;
+
+// App.js
+import CartContext from './CartContext';
+
+function App() {
+  // Menggunakan useState untuk mengelola status keranjang secara lokal
+  const [cart, setCart] = useState([]);
+
+  // Mendefinisikan fungsi untuk menambahkan item ke keranjang
+  const addToCart = (product) => {
+    setCart(prevCart => [...prevCart, product]);
+  };
+
+  // Mendefinisikan fungsi untuk menghapus item dari keranjang
+  const removeFromCart = (product) => {
+    setCart(prevCart => prevCart.filter(item => item.id !== product.id));
+  };
+
+  return (
+    // Membungkus komponen anak dengan CartContext.Provider
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+      {/* Komponen anak dapat mengakses konteks menggunakan useContext */}
+      <ProductListing />
+      <ShoppingCart />
+    </CartContext.Provider>
+  );
+}
+
+// ProductListing.js
+import { useContext } from 'react';
+import CartContext from './CartContext';
+
+function ProductListing() {
+  // Menggunakan useContext untuk mengakses konteks
+  const context = useContext(CartContext);
+
+  // Mengekstrak fungsi addToCart dari konteks
+  const { addToCart } = context;
+
+  // Menangani klik tombol "Tambahkan ke Keranjang"
+  const handleAddToCart = (product) => {
+    // Menambahkan produk ke keranjang menggunakan fungsi addToCart dari konteks
+    addToCart(product);
+  };
+
+  return (
+    <div>
+      {/* Daftar produk dengan tombol untuk menambahkan ke keranjang */}
+      <button onClick={() => handleAddToCart(product)}>Tambahkan ke Keranjang</button>
+    </div>
+  );
+}
+
+// ShoppingCart.js
+import { useContext } from 'react';
+import CartContext from './CartContext';
+
+function ShoppingCart() {
+  // Menggunakan useContext untuk mengakses konteks
+  const context = useContext(CartContext);
+
+  // Mengekstrak nilai keranjang dari konteks
+  const { cart } = context;
+
+  return (
+    <div>
+      {/* Daftar item keranjang */}
+      {cart.map((item) => <div key={item.id}>{item.name}</div>)}
+    </div>
+  );
+}

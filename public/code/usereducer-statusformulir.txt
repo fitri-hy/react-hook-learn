@@ -1,0 +1,54 @@
+import { useReducer } from 'react';
+
+// Mendefinisikan status awal formulir
+const initialState = {
+  name: '',
+  email: '',
+};
+
+// Mendefinisikan fungsi pereduksi untuk memperbarui status
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'UPDATE_NAME':
+      // Saat jenis tindakan adalah 'UPDATE_NAME', kembalikan status baru dengan memperbarui properti 'name'
+      return { ...state, name: action.payload };
+    case 'UPDATE_EMAIL':
+      // Saat jenis tindakan adalah 'UPDATE_EMAIL', kembalikan status baru dengan memperbarui properti 'email'
+      return { ...state, email: action.payload };
+    default:
+      // Jika jenis tindakan tidak dikenali, kembalikan status saat ini
+      return state;
+  }
+};
+
+// Komponen fungsional React yang menampilkan formulir
+function Form() {
+  // Menggunakan useReducer dengan fungsi pereduksi dan status awal yang ditentukan
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  // Mendefinisikan fungsi untuk menangani perubahan pada input nama
+  const handleNameChange = (event) => {
+    // Mendapatkan nilai dari input nama
+    const name = event.target.value;
+
+    // Melakukan dispatch tindakan 'UPDATE_NAME' dengan nilai yang diperbarui
+    dispatch({ type: 'UPDATE_NAME', payload: name });
+  };
+
+  // Mendefinisikan fungsi untuk menangani perubahan pada input email
+  const handleEmailChange = (event) => {
+    // Mendapatkan nilai dari input email
+    const email = event.target.value;
+
+    // Melakukan dispatch tindakan 'UPDATE_EMAIL' dengan nilai yang diperbarui
+    dispatch({ type: 'UPDATE_EMAIL', payload: email });
+  };
+
+  // Merender formulir dengan input nama dan email yang dikontrol oleh status
+  return (
+    <form>
+      <input type="text" value={state.name} onChange={handleNameChange} />
+      <input type="email" value={state.email} onChange={handleEmailChange} />
+    </form>
+  );
+}

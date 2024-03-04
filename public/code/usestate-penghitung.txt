@@ -1,0 +1,27 @@
+// Import React dan hook useState
+import React, { useState } from "react";
+
+// Komponen App
+const App = () => {
+  // Membuat status penghitung awal (count) dengan nilai 0 menggunakan useState
+  const [count, setCount] = useState(0);
+
+  // Fungsi untuk menangani klik tombol "Tambah"
+  const handleIncrement = () => {
+    // Menggunakan setCount untuk memperbarui status penghitung, menambahkan 1 ke nilai sebelumnya
+    // Ini adalah fungsi pembaruan yang menerima status penghitung sebelumnya sebagai argumen
+    setCount(prevCount => prevCount + 1);
+  };
+
+  // Render komponen
+  return (
+    <div>
+      <h1>Penghitung</h1>
+      <p>Nilai Hitung: {count}</p>
+      <button onClick={handleIncrement}>Tambah</button>
+    </div>
+  );
+};
+
+// Mengekspor komponen App
+export default App;

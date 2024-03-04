@@ -1,0 +1,11 @@
+import { useLayoutEffect } from 'react';
+
+function App() {
+  // Menggunakan useLayoutEffect untuk memperbarui DOM selama fase "layout"
+  // Ketergantungan kosong memastikan efek ini hanya dijalankan sekali saat pemasangan
+  useLayoutEffect(() => {
+    document.body.style.backgroundColor = 'lightblue';
+  }, []);
+
+  return <div>...</div>;
+}

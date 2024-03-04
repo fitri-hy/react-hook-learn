@@ -1,0 +1,43 @@
+// AuthContext.js
+// Membuat konteks React menggunakan createContext
+import { createContext } from 'react';
+
+const AuthContext = createContext({
+  currentUser: null, // Mendefinisikan nilai awal untuk pengguna saat ini
+  setCurrentUser: () => {}, // Mendefinisikan fungsi pembaruan untuk pengguna saat ini
+});
+
+// Mengekspor konteks agar dapat digunakan di seluruh aplikasi
+export default AuthContext;
+
+// App.js
+// Membungkus komponen anak dengan AuthContext.Provider
+import AuthContext from './AuthContext';
+
+function App() {
+  // Menggunakan useState untuk mengelola status pengguna saat ini secara lokal
+  const [currentUser, setCurrentUser] = useState(null);
+
+  return (
+    <AuthContext.Provider value={{ currentUser, setCurrentUser }}>
+      {/* Komponen anak dapat mengakses konteks menggunakan useContext */}
+      <Dashboard />
+    </AuthContext.Provider>
+  );
+}
+
+// Dashboard.js
+// Mengakses konteks menggunakan useContext
+import { useContext } from 'react';
+import AuthContext from './AuthContext';
+
+function Dashboard() {
+  // Menggunakan useContext untuk mengakses konteks
+  const context = useContext(AuthContext);
+
+  // Mengekstrak nilai pengguna saat ini dari konteks
+  const { currentUser } = context;
+
+  // Merender komponen Dashboard dengan menampilkan nama pengguna saat ini
+  return <div>Selamat datang, {currentUser?.username}!</div>;
+}

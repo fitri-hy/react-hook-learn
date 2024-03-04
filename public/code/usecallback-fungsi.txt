@@ -1,0 +1,15 @@
+import { useCallback } from 'react';
+
+// Komponen fungsional React
+function App() {
+  // Mendefinisikan fungsi untuk menangani klik tombol
+  const handleClick = () => {
+    console.log('Tombol diklik!');
+  };
+
+  // Menggunakan useCallback untuk membuat versi fungsi handleClick yang dimemoisasi
+  const memoizedHandleClick = useCallback(handleClick, []); // Ketergantungan kosong memastikan fungsi tidak diperbarui
+
+  // Merender komponen dengan tombol yang memicu fungsi handleClick yang dimemoisasi saat diklik
+  return <button onClick={memoizedHandleClick}>Klik Saya</button>;
+}

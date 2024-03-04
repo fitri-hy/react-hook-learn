@@ -1,0 +1,44 @@
+import { useRef, useImperativeHandle, useState } from 'react';
+
+// Komponen Input yang dapat dipanggil secara imperatif
+function InputComponent() {
+  // Membuat ref yang dapat berubah untuk menyimpan elemen input
+  const inputRef = useRef(null);
+
+  // Membuat status untuk melacak status fokus
+  const [isFocused, setIsFocused] = useState(false);
+
+  // Menggunakan useImperativeHandle untuk mengekspos metode fokus dan blur
+  useImperativeHandle(inputRef, () => ({
+    focus: () => {
+      // Memfokuskan elemen input dan memperbarui status fokus
+      inputRef.current.focus();
+      setIsFocused(true);
+    },
+    blur: () => {
+      // Mengaburkan elemen input dan memperbarui status fokus
+      inputRef.current.blur();
+      setIsFocused(false);
+    },
+  }));
+
+  // Merender elemen input
+  return <input type="text" ref={inputRef} />;
+}
+
+// Komponen Form yang menggunakan InputComponent
+function FormComponent() {
+  // Membuat ref yang dapat berubah untuk meneruskan ke InputComponent
+  const inputRef = useRef(null);
+
+  // Menggunakan useEffect untuk memfokuskan input saat komponen dipasang
+  useEffect(() => {
+    if (inputRef.current) {
+      // Memfokuskan elemen input menggunakan metode fokus yang diekspos
+      inputRef.current.focus();
+    }
+  }, []);
+
+  // Merender InputComponent dengan meneruskan ref
+  return <InputComponent ref={inputRef} />;
+}

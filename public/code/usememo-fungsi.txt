@@ -1,0 +1,14 @@
+import { useMemo } from 'react';
+
+// Komponen fungsional React
+function App() {
+  // Membuat fungsi yang akan dimemoisasi
+  const memoizedFunction = useMemo(() => {
+    return () => {
+      console.log('Saya fungsi yang dimemoisasi!');
+    };
+  }, []); // Ketergantungan kosong memastikan fungsi tidak diperbarui
+
+  // Merender komponen, termasuk tombol yang memicu fungsi yang dimemoisasi saat diklik
+  return <button onClick={memoizedFunction}>Klik Saya</button>;
+}

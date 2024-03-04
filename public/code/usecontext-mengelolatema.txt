@@ -1,0 +1,44 @@
+// AppContext.js
+// Membuat konteks React menggunakan createContext
+import { createContext } from 'react';
+
+const AppContext = createContext({
+  theme: 'light', // Mendefinisikan nilai awal untuk tema
+  setTheme: () => {}, // Mendefinisikan fungsi pembaruan untuk tema
+});
+
+// Mengekspor konteks agar dapat digunakan di seluruh aplikasi
+export default AppContext;
+
+// App.js
+import AppContext from './AppContext';
+
+function App() {
+  // Menggunakan useState untuk mengelola status tema secara lokal
+  const [theme, setTheme] = useState('light');
+
+  return (
+    // Membungkus komponen anak dengan AppContext.Provider
+    <AppContext.Provider value={{ theme, setTheme }}>
+      {/* Komponen anak dapat mengakses konteks menggunakan useContext */}
+      <ChildComponent />
+    </AppContext.Provider>
+  );
+}
+
+// ChildComponent.js
+import { useContext } from 'react';
+import AppContext from './AppContext';
+
+function ChildComponent() {
+  // Menggunakan useContext untuk mengakses konteks
+  const context = useContext(AppContext);
+
+  // Mengekstrak nilai tema dari konteks
+  const { theme } = context;
+
+  return (
+    // Menggunakan nilai tema untuk mengatur gaya komponen anak
+    <div style={{ backgroundColor: theme === 'light' ? 'white' : 'black' }}>...</div>
+  );
+}

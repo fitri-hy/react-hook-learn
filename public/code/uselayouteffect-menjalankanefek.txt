@@ -1,0 +1,15 @@
+import { useLayoutEffect } from 'react';
+
+// Komponen fungsional React
+function App() {
+  // Menggunakan useLayoutEffect dengan fungsi pembersihan untuk melakukan tindakan sebelum komponen dihapus
+  useLayoutEffect(() => {
+    return () => {
+      // Pembersihan sebelum komponen dihapus
+      console.log('Komponen akan dihapus!');
+    };
+  }, []); // Ketergantungan kosong memastikan pembersihan hanya dijalankan saat komponen dipasang
+
+  // Merender komponen
+  return <div>...</div>;
+}

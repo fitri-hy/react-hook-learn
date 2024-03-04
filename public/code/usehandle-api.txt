@@ -1,0 +1,35 @@
+import { useRef, useImperativeHandle } from 'react';
+
+// Komponen yang dapat dipanggil secara imperatif (CustomComponent)
+function CustomComponent() {
+  // Membuat ref yang dapat berubah
+  const ref = useRef(null);
+
+  // Menggunakan useImperativeHandle untuk mengekspos metode greet
+  useImperativeHandle(ref, () => ({
+    greet: (name) => {
+      alert(`Halo, ${name}!`);
+    },
+  }));
+
+  // Merender komponen dan meneruskan ref
+  return <div ref={ref}>...</div>;
+}
+
+// Komponen induk (ParentComponent)
+function ParentComponent() {
+  // Membuat ref untuk komponen yang dapat dipanggil secara imperatif
+  const customRef = useRef(null);
+
+  // Menggunakan useEffect untuk memanggil metode greet saat komponen dipasang
+  useEffect(() => {
+    // Memeriksa apakah ref saat ini ada
+    if (customRef.current) {
+      // Memanggil metode greet pada ref
+      customRef.current.greet('John Doe');
+    }
+  }, [customRef]);
+
+  // Merender komponen dan meneruskan ref
+  return <CustomComponent ref={customRef} />;
+}

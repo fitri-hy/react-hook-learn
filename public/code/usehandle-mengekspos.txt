@@ -1,0 +1,35 @@
+import { useRef, useImperativeHandle } from 'react';
+
+// Komponen Anak yang dapat dipanggil secara imperatif
+function ChildComponent() {
+  // Membuat ref yang dapat berubah untuk menyimpan elemen input
+  const inputRef = useRef(null);
+
+  // Menggunakan useImperativeHandle untuk mengekspos metode fokusInput
+  useImperativeHandle(inputRef, () => ({
+    focusInput: () => {
+      // Memfokuskan elemen input menggunakan ref saat ini
+      inputRef.current.focus();
+    },
+  }));
+
+  // Merender elemen input
+  return <input type="text" ref={inputRef} />;
+}
+
+// Komponen Induk yang menggunakan Komponen Anak
+function ParentComponent() {
+  // Membuat ref yang dapat berubah untuk meneruskan ke Komponen Anak
+  const childRef = useRef(null);
+
+  // Menggunakan useEffect untuk memanggil metode fokusInput setelah komponen dipasang
+  useEffect(() => {
+    if (childRef.current) {
+      // Memanggil metode fokusInput menggunakan ref saat ini
+      childRef.current.focusInput();
+    }
+  }, [childRef]);
+
+  // Merender Komponen Anak dengan meneruskan ref
+  return <ChildComponent ref={childRef} />;
+}

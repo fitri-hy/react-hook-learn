@@ -1,0 +1,28 @@
+// Import hook dari pustaka React
+import React, { useState } from 'react';
+
+// Komponen ini mendefinisikan penghitung sederhana
+function MyComponents() {
+  // Hook `useState` digunakan untuk membuat variabel state bernama `count` dan fungsi untuk memperbaruinya, `setCount`.
+  // Nilai awal `count` diatur ke 0.
+  const [count, setCount] = useState(0);
+
+  // Fungsi ini menambah variabel state `count` sebanyak 1.
+  const increment = () => {
+    setCount(count + 1);
+  }
+  // Fungsi ini mengurangi variabel state `count` sebanyak -1.
+  const decrement = () => {
+    setCount(count - 1);
+  }
+
+  // Pernyataan `return` merender UI komponen.
+  return (
+    // Variabel state `count` ditampilkan dalam paragraf, dan dua tombol disediakan untuk menambah dan mengurangi hitungan.
+    <div>
+      <p>Hitungan: {count}</p>
+      <button onClick={increment}>Tambah</button>
+      <button onClick={decrement}>Kurangi</button>
+    </div>
+  );
+}

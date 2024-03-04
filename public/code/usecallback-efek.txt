@@ -1,0 +1,24 @@
+import { useCallback, useEffect } from 'react';
+
+function App() {
+  // Mendefinisikan status hitungan menggunakan useState
+  const [count, setCount] = useState(0);
+
+  // Mendefinisikan fungsi memoized untuk menangani perubahan hitungan menggunakan useCallback
+  const memoizedHandleCountChange = useCallback(() => {
+    console.log(`Hitungan berubah menjadi ${count}`);
+  }, [count]); // Ketergantungan pada `count` untuk memastikan pembaruan saat hitungan berubah
+
+  // Menggunakan useEffect untuk mengeksekusi efek samping setiap kali hitungan atau fungsi memoized berubah
+  useEffect(() => {
+    memoizedHandleCountChange();
+  }, [count, memoizedHandleCountChange]);
+
+  // Mengembalikan antarmuka pengguna yang menampilkan hitungan dan tombol untuk menambahnya
+  return (
+    <div>
+      <p>Hitungan: {count}</p>
+      <button onClick={() => setCount((prevCount) => prevCount + 1)}>Tambah</button>
+    </div>
+  );
+}

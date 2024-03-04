@@ -1,0 +1,30 @@
+// Mengimpor hook yang diperlukan dari React
+import React, { useEffect, useState, useRef } from "react";
+
+// Mendefinisikan komponen fungsional React bernama MyComponent
+const MyComponent = () => {
+  // Menggunakan useState untuk mengelola status teks yang dapat berubah, awalnya diatur ke string kosong
+  const [text, setText] = useState("");
+
+  // Menggunakan useRef untuk membuat referensi yang dapat berubah ke elemen input
+  const inputRef = useRef(null);
+
+  // Menggunakan useEffect untuk memperbarui DOM saat status teks berubah
+  useEffect(() => {
+    // Memeriksa apakah referensi input saat ini ada
+    if (inputRef.current) {
+      // Jika ada, atur nilai elemen input ke status teks saat ini
+      inputRef.current.value = text;
+    }
+  }, [text]); // Ketergantungan pada status teks untuk memastikan pembaruan saat berubah
+
+  // Mengembalikan elemen input di UI
+  return (
+    <>
+      <input type="text" ref={inputRef} onChange={(e) => setText(e.target.value)} />
+    </>
+  );
+};
+
+// Mengekspor komponen MyComponent agar dapat digunakan di tempat lain dalam aplikasi
+export default MyComponent;

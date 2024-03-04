@@ -1,0 +1,34 @@
+import React, { useEffect, useState } from "react";
+
+// Komponen fungsional React yang disebut MyComponent
+const MyComponent = () => {
+  // Menggunakan useState untuk mengelola status data yang dapat berubah, yang awalnya kosong
+  const [data, setData] = useState([]);
+
+  // Menggunakan useEffect untuk mengeksekusi efek samping setelah komponen dipasang
+  // Array kosong sebagai ketergantungan untuk mencegah pengulangan efek ini
+  useEffect(() => {
+    // Mengambil data dari API
+    const fetchData = async () => {
+      const response = await fetch("https://example.com/api");
+      const data = await response.json();
+      // Memperbarui status data dengan data yang diambil dari API
+      setData(data);
+    };
+
+    // Memanggil fungsi fetchData
+    fetchData();
+  }, []);
+
+  // Menampilkan daftar item data di UI
+  return (
+    <>
+      <ul>
+        {data.map(item => <li key={item.id}>{item.name}</li>)}
+      </ul>
+    </>
+  );
+};
+
+// Mengekspor komponen agar dapat digunakan di tempat lain dalam aplikasi
+export default MyComponent;

@@ -1,0 +1,16 @@
+import { useMemo } from 'react';
+
+// Komponen fungsional React
+function App() {
+  // Membuat larik besar yang mahal untuk dibuat
+  const largeArray = new Array(100000).fill(0);
+
+  // Menggunakan useMemo untuk membuat versi larik yang dimemoisasi
+  // di mana setiap elemen dikalikan dengan 2
+  const memoizedArray = useMemo(() => {
+    return largeArray.map((item) => item * 2);
+  }, [largeArray]); // Ketergantungan pada `largeArray` memastikan larik yang dimemoisasi diperbarui saat `largeArray` berubah
+
+  // Merender komponen dan hanya menampilkan elemen pertama dari larik yang dimemoisasi
+  return <div>{memoizedArray[0]}</div>;
+}

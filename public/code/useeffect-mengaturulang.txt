@@ -1,0 +1,25 @@
+// Mengimpor hook yang diperlukan dari React
+import React, { useEffect, useState } from "react";
+
+// Mendefinisikan komponen fungsional React bernama MyComponent
+const MyComponent = () => {
+  // Menggunakan useState untuk mengelola status hitungan yang dapat berubah, yang awalnya diatur ke 0
+  const [count, setCount] = useState(0);
+
+  // Menggunakan useEffect untuk mengeksekusi efek samping setelah komponen dipasang
+  // Array kosong sebagai ketergantungan untuk memastikan efek ini hanya dijalankan sekali saat komponen dipasang
+  useEffect(() => {
+    // Mengatur status hitungan ke 0 saat komponen dipasang
+    setCount(0);
+  }, []);
+
+  // Merender komponen dengan menampilkan hitungan saat ini
+  return (
+    <>
+      <p>Hitungan: {count}</p>
+    </>
+  );
+};
+
+// Mengekspor komponen MyComponent agar dapat digunakan di bagian lain aplikasi
+export default MyComponent;

@@ -1,0 +1,19 @@
+import { useRef } from 'react';
+
+// Komponen fungsional React
+function ExpensiveComponent({ data }) {
+  // Membuat ref yang dapat berubah untuk menyimpan data sebelumnya
+  const prevDataRef = useRef(null);
+
+  // Memeriksa apakah data sebelumnya berbeda dari data saat ini
+  if (prevDataRef.current !== data) {
+    // Jika berbeda, lakukan perhitungan atau operasi mahal di sini
+    // Perhitungan atau operasi ini hanya akan dijalankan ketika data berubah
+
+    // Memperbarui data sebelumnya dengan data saat ini
+    prevDataRef.current = data;
+  }
+
+  // Merender komponen
+  return <div>...</div>;
+}

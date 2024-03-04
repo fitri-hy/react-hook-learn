@@ -1,0 +1,19 @@
+import { useLayoutEffect, useState } from 'react';
+
+// Komponen fungsional React
+function App() {
+  // Menggunakan useState untuk mengelola status ukuran elemen
+  const [size, setSize] = useState({ width: 0, height: 0 });
+
+  // Menggunakan useLayoutEffect untuk memperbarui status ukuran elemen setelah komponen dipasang
+  useLayoutEffect(() => {
+    // Mengambil elemen DOM yang ukurannya ingin dilacak
+    const element = document.getElementById('my-element');
+
+    // Memperbarui status dengan ukuran elemen saat ini
+    setSize({ width: element.clientWidth, height: element.clientHeight });
+  }, []); // Ketergantungan kosong memastikan efek ini hanya dijalankan sekali saat komponen dipasang
+
+  // Merender komponen, termasuk elemen dengan ID 'my-element'
+  return <div id="my-element">...</div>;
+}

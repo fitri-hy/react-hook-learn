@@ -1,0 +1,29 @@
+// Import React dan hook useState
+import React, { useState } from "react";
+
+// Komponen App
+const App = () => {
+  // Membuat status warna awal (color) dengan nilai "red" menggunakan useState
+  const [color, setColor] = useState("red");
+
+  // Fungsi untuk menangani perubahan warna
+  const handleChangeColor = (newColor) => {
+    // Menggunakan spread operator untuk membuat salinan status objek warna saat ini
+    // dan memperbarui properti warna dengan nilai baru
+    setColor(newColor);
+  };
+
+  // Render komponen
+  return (
+    <div>
+      <h1>Pengubah Warna</h1>
+		<p>Warna Saat Ini: {color}</p>
+		<button onClick={() => handleChangeColor("blue")}>Biru</button>
+		<button onClick={() => handleChangeColor("green")}>Hijau</button>
+		<button onClick={() => handleChangeColor("yellow")}>Kuning</button>
+    </div>
+  );
+};
+
+// Mengekspor komponen App
+export default App;
