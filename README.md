@@ -1,6 +1,6 @@
 # React Hook Learn Project
 
-Anda dapat mulai mempelajari Hooks di halaman berikutnya [Learn React Hook](https://react-hook-learn.vercel.app/)
+You can start learning about Hooks on the next page [Learn React Hook](https://react-hook-learn.vercel.app/).
 
 ## Available Scripts
 
