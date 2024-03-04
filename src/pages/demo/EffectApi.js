@@ -23,7 +23,7 @@ function EffectApi() {
 			<div className="w-full flex flex-col items-center bg-white dark:bg-neutral-800 shadow-lg py-12 px-4 rounded-lg mt-12">
 				<p className="text-2xl font-bold text-gray-700 dark:text-gray-200">Data Fetch</p>
 				<p className="text-center my-4 text-gray-700 dark:text-gray-200">https://restcountries.com/v2/all</p>
-				<div className="grid grid-cols-4 gap-4">
+				<div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
 					{data.map(item => <p className="flex items-center justify-center bg-gray-600 text-center rounded-md p-2 text-white" key={item.id}>{item.name} </p>)}
 				</div>
 			</div>
